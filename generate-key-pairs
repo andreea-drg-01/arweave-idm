@@ -1,0 +1,11 @@
+const crypto = require(’crypto’);
+const { BbsBls12381G2KeyPair,
+BbsBls12381G2Signature } =
+require(’@digitalcredentials/bbs’);
+const { JwtSigner, JwtVerifier } =
+require(’@digitalcredentials/did-jwt’);
+async function generateKeyPair() {
+const keyPair =
+await BbsBls12381G2KeyPair.generate();
+return keyPair;
+}
