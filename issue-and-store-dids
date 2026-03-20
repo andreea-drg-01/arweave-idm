@@ -1,0 +1,20 @@
+const didDocument = {
+  "@context": "https://www.w3.org/ns/did/v1", "id": "did:arweave:123456789abcdefghi", 
+  "verificationMethod": [
+    {
+      "id": "did:arweave:alice#keys-1", "type": "Ed25519VerificationKey2018",
+      "controller": "did:arweave:123456789abcdefghi", 
+      "publicKeyBase58": "GfH1x23..."
+    }
+],
+"authentication": [ 
+  "did:arweave:123456789abcdefghi#keys-1"
+],
+"service": [
+  {
+    "id": "did:arweave:123456789abcdefghi#vcs", 
+    "type": "VerifiableCredentialService", 
+    "serviceEndpoint": "https://..."
+  }
+]}
+
