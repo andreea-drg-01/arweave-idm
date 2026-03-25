@@ -1,0 +1,9 @@
+const { createProof } = require("@mattrglobal/bbs-signatures");
+//Disclose only the age claim (index 2)
+    const disclosedIndexes = [2];
+    const zkProof = await createProof({
+        signedVC,
+        publicKey: holderKeyPair.publicKey,
+        messages: credential.credentialSubject,
+        revealed: disclosedIndexes
+    });
