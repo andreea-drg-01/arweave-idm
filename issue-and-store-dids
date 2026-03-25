@@ -18,3 +18,32 @@ const didDocument = {
   }
 ]}
 
+const Arweave = require('arweave');
+const arweave = Arweave.init({
+      host: 'arweave.net',
+      port: 443,
+      protocol: 'https'
+    });
+
+const storeDIDDocument = async (didDocument) => {
+// Create a transaction to store the DID Document
+const transaction = await arweave.createTransaction({
+data: JSON.stringify(didDocument),
+      });
+// Add tags to identify the DID Document
+transaction.addTag('Content-Type', 'application/json');
+transaction.addTag('DID-Type', 'did-document'); 
+// Sign the transaction using ArConnect
+await window.arweaveWallet.signTransaction(transaction);
+// Post the transaction to the Arweave network
+const response 
+    = await arweave.transactions.post(transaction);
+console.log('Transaction ID:', transaction.id);
+return transaction.id;
+}; 
+// Store the DID Document
+storeDIDDocument(didDocument).then(txId => {
+    console.log('Stored DID Document with 
+        transaction ID:', txId);
+});
+
