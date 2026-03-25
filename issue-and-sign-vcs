@@ -1,0 +1,36 @@
+const { generateBls12381G2KeyPair, sign, createProof, verifyProof } = 
+require("@mattrglobal/bbs-signatures");
+
+async function createVerifiableCredential(issuerKeyPair, holderPublicKey,holderAttributes) {
+    const credential = 
+    {
+      "@context": 
+      ["https://www.w3.org/2018/credentials/v1"],
+      id: `https://example.org/credentials/123,
+      type: "VerifiableCredential",
+      issuer: "https://example.org/issuer",
+      issuanceDate: new Date().toISOString(),
+      credentialSubject: {
+        id: "https://example.org/holder",
+        "name": "Alice",
+        "age": 25,
+        ...,
+        publicKey: holderPublicKey
+        }
+    };
+
+const signedVC = 
+    await createVerifiableCredential(issuerKeyPair,
+        holderKeyPair.publicKey, holderAttributes);
+const signer = new JwtSigner({ key: issuerKeyPair });
+const signedVC = await signer.sign(credential);
+return signedVC;
+
+credential.proof = {
+  type: "BbsBlsSignature2020",
+  created: new Date().toISOString(),
+  proofPurpose: "assertionMethod",
+  // this represents the issuer's DID key
+  verificationMethod: "did:example:issuer#key-1",  
+  proofValue: signedVC.signature.toString('base64')
+};
