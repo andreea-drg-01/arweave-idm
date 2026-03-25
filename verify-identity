@@ -1,0 +1,7 @@
+const {verifyProof} = require("@mattrglobal/bbs-signatures");
+//Verify the proof
+const isProofValid = await verifyProof({
+    zkProof,
+    publicKey: keyPair.publicKey,
+    messages: ["25"] // Disclosed claim
+    });
